@@ -5,29 +5,7 @@ Reproducible Research Peer Assessment 1
 
     library(lubridate)
     library(sqldf)
-
-    ## Loading required package: gsubfn
-    ## Loading required package: proto
-    ## Loading required package: RSQLite
-    ## Loading required package: DBI
-
     library(dplyr)
-
-    ## 
-    ## Attaching package: 'dplyr'
-    ## 
-    ## The following objects are masked from 'package:lubridate':
-    ## 
-    ##     intersect, setdiff, union
-    ## 
-    ## The following objects are masked from 'package:stats':
-    ## 
-    ##     filter, lag
-    ## 
-    ## The following objects are masked from 'package:base':
-    ## 
-    ##     intersect, setdiff, setequal, union
-
     library(lattice)
 
 ### Loading and cleaning data
@@ -61,14 +39,12 @@ analysis.
 
     ACT3<-sqldf("select date, sum(steps) as steps from ACT2 group by date")
 
-    ## Loading required package: tcltk
-
     #Histogram is created based on the summarised data above
     hist(ACT3$steps,col="blue",
          main="Histogram of Total Steps per Day",
          xlab="Total Steps per Day")
 
-![](Activity_PA_1_files/figure-markdown_strict/unnamed-chunk-3-1.png)
+![](PA1_template_files/figure-markdown_strict/unnamed-chunk-3-1.png)
 
     mean(ACT3$steps, na.rm = TRUE)
 
@@ -97,7 +73,7 @@ analysis.
                         xlab="5 min - interval",
                         ylab="Average Steps"))
 
-![](Activity_PA_1_files/figure-markdown_strict/unnamed-chunk-4-1.png)
+![](PA1_template_files/figure-markdown_strict/unnamed-chunk-4-1.png)
 
     #calculate which interval has the maximim number of steps
     with(newdata,interval[which.max(steps)])
@@ -133,7 +109,9 @@ analysis.
 
     ## [1] 2304
 
-The number of rows with NAs is **2304**
+The number of rows with NAs is **2304**. The strategy for replscing
+missing values is to replace them with mean results from the previous
+step by interval and join them with the original dataset ACT2
 
     # change colname
     colnames(newdata)[2]<-c("StepsInterval")
@@ -152,7 +130,7 @@ The number of rows with NAs is **2304**
          main="Histogram of Total Steps per Day",
          xlab="Total Steps per Day")
 
-![](Activity_PA_1_files/figure-markdown_strict/unnamed-chunk-6-1.png)
+![](PA1_template_files/figure-markdown_strict/unnamed-chunk-6-1.png)
 
     #calculate mean and median
     mean(newdata1$dailyTotal)
@@ -175,7 +153,7 @@ to identify any differences in activity
     newdata<- newdata %>% group_by(day,interval) %>% summarise(meansteps=mean(steps))
     with (newdata, xyplot(meansteps ~ interval|day, type="l", ylab="Number of steps",layout=c(1,2)))
 
-![](Activity_PA_1_files/figure-markdown_strict/unnamed-chunk-7-1.png)
+![](PA1_template_files/figure-markdown_strict/unnamed-chunk-7-1.png)
 
 It can therefore be seen that the weekdays activities are more
 concentrated while weekend activities are more spread out.

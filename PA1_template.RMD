@@ -80,7 +80,7 @@ df_NA <- ACT2[!complete.cases(ACT2),]
 # number of rows
 nrow(df_NA)
 ```
-The number of rows with NAs is **`r nrow(df_NA)`**
+The number of rows with NAs is **`r nrow(df_NA)`**. The strategy for replscing missing values is to replace them with mean results from the previous step by interval and join them with the original dataset ACT2
 
 ```{r,cache=TRUE,echo=TRUE,warning=FALSE}
 # change colname
